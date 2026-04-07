@@ -19,12 +19,12 @@ Aquí ya trabajas con una arquitectura más real: aplicación, base de datos y p
 ## Inicio rápido
 
 ```bash
-cd fase-2
+cd proyecto-con-persistencia-en-mysql
 docker compose up -d --build
 docker compose ps
 ```
 
-El arranque puede tardar algo más que en el proyecto sin persistencia porque MySQL necesita inicializar volumen y scripts.
+El arranque puede tardar algo más que en Proyecto sin persistencia (sin BBDD) porque MySQL necesita inicializar volumen y scripts.
 
 ## Accesos
 
@@ -44,7 +44,7 @@ Importante: el host `db` solo funciona dentro de la red Docker. Desde tu PC, usa
 
 ## Guía educativa
 
-- [Guía Fase 2 (Docker + MySQL + PDO)](./docs/GUIA_FASE_2_DOCKER_PDO.md)
+- [Guía Proyecto con persistencia en MySQL (Docker + MySQL + PDO)](./docs/GUIA_FASE_2_DOCKER_PDO.md)
 
 ## Parar servicios
 

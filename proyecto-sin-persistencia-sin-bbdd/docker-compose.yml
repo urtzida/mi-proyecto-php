@@ -1,5 +1,5 @@
 # Archivo: docker-compose.yml
-# Objetivo: levantar el entorno de desarrollo de la fase 1.
+# Objetivo: levantar el entorno de desarrollo de la proyecto sin persistencia (sin BBDD).
 # Contexto: define servicios para aplicacion PHP/Apache y utilidad Composer.
 services:
   app: # Servicio principal de la aplicacion web

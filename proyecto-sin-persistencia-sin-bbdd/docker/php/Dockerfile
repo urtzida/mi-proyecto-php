@@ -1,6 +1,6 @@
 # Archivo: docker/php/Dockerfile
-# Objetivo: construir la imagen de desarrollo PHP + Apache para la proyecto con persistencia en MySQL.
-# Contexto: incluye extensiones para conexion MySQL mediante mysqli y PDO.
+# Objetivo: construir la imagen de desarrollo PHP + Apache para la proyecto sin persistencia (sin BBDD).
+# Contexto: se usa desde docker-compose para ejecutar la aplicacion local.
 FROM php:8.2-apache
 
 # Paso 1: instalar utilidades del sistema y extensiones PHP requeridas.

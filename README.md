@@ -1,22 +1,25 @@
-﻿# IMAW � Docker por Fases para PHP
+﻿# IMAW · Docker por Proyectos para PHP
 
 [![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php&logoColor=white)](https://www.php.net/docs.php)
 [![MySQL](https://img.shields.io/badge/MySQL-8.x-4479A1?logo=mysql&logoColor=white)](https://dev.mysql.com/doc/)
-[![Status](https://img.shields.io/badge/Curso-Activo-success)](#inicio-rapido)
+[![Estado](https://img.shields.io/badge/Curso-Activo-success)](#inicio-rápido)
 
 Proyecto docente organizado en dos fases progresivas para aprender despliegue con Docker en aplicaciones PHP.
 
-## Indice
+La idea es avanzar por bloques cortos: primero levantar una app PHP sencilla y después añadir base de datos.
+Si sigues ese orden, la mayoría de errores serán más fáciles de identificar.
+
+## Índice
 
 - [Autores](#autores)
 - [Vista general](#vista-general)
 - [Ruta recomendada](#ruta-recomendada)
-- [Inicio rapido](#inicio-rapido)
-- [Documentacion del proyecto](#documentacion-del-proyecto)
+- [Inicio rápido](#inicio-rápido)
+- [Documentación del proyecto](#documentación-del-proyecto)
 - [Recursos recomendados](#recursos-recomendados)
-- [Comandos utiles](#comandos-utiles)
-- [Que carpeta usar](#que-carpeta-usar)
+- [Comandos útiles](#comandos-útiles)
+- [Qué carpeta usar](#qué-carpeta-usar)
 - [Parar servicios](#parar-servicios)
 
 ## Autores
@@ -29,46 +32,54 @@ Este repositorio separa el aprendizaje en dos bloques independientes:
 
 | Fase | Objetivo | Stack |
 |---|---|---|
-| `fase-1` | Primer despliegue de una app PHP | PHP (sin base de datos) |
-| `fase-2` | Integrar persistencia en entorno Docker | PHP + MySQL (PDO) |
+| `proyecto-sin-persistencia-sin-bbdd` | Primer despliegue de una app PHP | PHP (sin base de datos) |
+| `proyecto-con-persistencia-en-mysql` | Integrar persistencia en entorno Docker | PHP + MySQL (PDO) |
 
 ## Ruta recomendada
 
 Antes de levantar contenedores, sigue este orden:
 
-1. Revisa la documentacion de `fase-1/docs/`.
-2. Verifica que Docker y VS Code esten listos.
-3. Arranca la fase correspondiente segun tu nivel.
+1. Revisa la documentación de `proyecto-sin-persistencia-sin-bbdd/docs/`.
+2. Verifica que Docker y VS Code estén listos.
+3. Arranca el proyecto correspondiente según tu nivel.
 
-## Inicio rapido
+Nota: cada fase tiene su propio `docker-compose.yml`, por eso debes ejecutar comandos dentro de la carpeta del proyecto.
 
-### Fase 1 � PHP
+## Inicio rápido
+
+### Proyecto sin persistencia (sin BBDD)
 
 ```bash
-cd fase-1
+cd proyecto-sin-persistencia-sin-bbdd
 docker compose up -d --build
 ```
 
-- Aplicacion: [http://localhost:8080](http://localhost:8080)
+Este arranque construye (o actualiza) la imagen de PHP y levanta el contenedor en segundo plano.
+El primer arranque suele tardar más porque descarga imágenes.
 
-### Fase 2 � PHP + MySQL
+- Aplicación: [http://localhost:8080](http://localhost:8080)
+
+### Proyecto con persistencia en MySQL
 
 ```bash
-cd fase-2
+cd proyecto-con-persistencia-en-mysql
 docker compose up -d --build
 ```
 
-- Aplicacion: [http://localhost:8082](http://localhost:8082)
+En esta fase se levantan varios servicios coordinados: app PHP, base de datos MySQL y phpMyAdmin.
+Si la web tarda en responder al principio, normalmente es porque MySQL aún está inicializando.
+
+- Aplicación: [http://localhost:8082](http://localhost:8082)
 - phpMyAdmin: [http://localhost:8083](http://localhost:8083)
 
-## Documentacion del proyecto
+## Documentación del proyecto
 
-- Fase 1:
-  - [Guia Docker Base](./fase-1/docs/GUIA_DOCKER_BASE.md)
-  - [Instalacion VS Code y extensiones](./fase-1/docs/INSTALACION_VSCODE_EXTENSIONES.md)
-  - [Guia Docker para PHP](./fase-1/docs/GUIA_DOCKER_PHP.md)
-- Fase 2:
-  - [Documentacion de fase 2](./fase-2/docs/)
+- Proyecto sin persistencia (sin BBDD):
+  - [Guía Docker Base](./proyecto-sin-persistencia-sin-bbdd/docs/GUIA_DOCKER_BASE.md)
+  - [Instalación de VS Code y extensiones](./proyecto-sin-persistencia-sin-bbdd/docs/INSTALACION_VSCODE_EXTENSIONES.md)
+  - [Guía Docker para PHP](./proyecto-sin-persistencia-sin-bbdd/docs/GUIA_DOCKER_PHP.md)
+- Proyecto con persistencia en MySQL:
+  - [Guía Docker + MySQL + PDO](./proyecto-con-persistencia-en-mysql/docs/GUIA_FASE_2_DOCKER_PDO.md)
 
 ## Recursos recomendados
 
@@ -87,30 +98,33 @@ docker compose up -d --build
   - [Containers para VS Code (imprescindible)](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-containers)
   - [Docker Extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
   - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
-## Comandos utiles
+
+## Comandos útiles
 
 ```bash
-# Ver contenedores de la fase actual
+# Ver contenedores del proyecto actual
 docker compose ps
 
 # Ver logs en tiempo real
 docker compose logs -f
 
 # Entrar al contenedor PHP
-docker compose exec php bash
+docker compose exec app bash
 
-# Reconstruir imagenes
+# Reconstruir imágenes
 docker compose build --no-cache
 ```
 
-## Que carpeta usar
+Consejo: usa `docker compose ps` como primer diagnóstico rápido; te indica si un servicio está caído o reiniciando.
 
-- Empieza por `fase-1` si es tu primer contacto con Docker.
-- Continua con `fase-2` para trabajar integracion con base de datos.
+## Qué carpeta usar
+
+- Empieza por `proyecto-sin-persistencia-sin-bbdd` si es tu primer contacto con Docker.
+- Continúa con `proyecto-con-persistencia-en-mysql` para trabajar integración con base de datos.
 
 ## Parar servicios
 
-Desde la carpeta de cada fase:
+Desde la carpeta de cada proyecto:
 
 ```bash
 docker compose down

@@ -3,22 +3,22 @@
 [![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php&logoColor=white)](https://www.php.net/manual/es/)
 [![Docker Compose](https://img.shields.io/badge/Docker%20Compose-Ready-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
 
-Guia practica de Fase 1 para trabajar PHP dentro de Docker.
+Guía práctica de Proyecto sin persistencia (sin BBDD) para trabajar PHP dentro de Docker.
 
-Nivel: `2/2` (de menos a mas), despues de la guia base.
+Nivel: `2/2` (de menos a más), después de la guía base.
 
-## Indice
+## Índice
 
 - [Paso previo](#paso-previo)
 - [Requisitos](#requisitos)
-- [Servicios de la fase](#servicios-de-la-fase)
+- [Servicios del proyecto](#servicios-del-proyecto)
 - [Arranque](#arranque)
 - [Comandos de trabajo](#comandos-de-trabajo)
-- [Troubleshooting rapido](#troubleshooting-rapido)
+- [Troubleshooting rápido](#troubleshooting-rápido)
 
 ## Paso previo
 
-Primero revisa [Guia Docker base](./GUIA_DOCKER_BASE.md).
+Primero revisa [Guía Docker base](./GUIA_DOCKER_BASE.md).
 
 ## Requisitos
 
@@ -27,16 +27,16 @@ Primero revisa [Guia Docker base](./GUIA_DOCKER_BASE.md).
 - WSL2 activado.
 - Git recomendado.
 
-Verificacion:
+Verificación:
 
 ```bash
 docker --version
 docker compose version
 ```
 
-## Servicios de la fase
+## Servicios del proyecto
 
-| Servicio | Funcion | Acceso |
+| Servicio | Función | Acceso |
 |---|---|---|
 | `app` | PHP + Apache | [http://localhost:8080](http://localhost:8080) |
 | `composer` | Comandos puntuales de dependencias | `docker compose run --rm composer ...` |
@@ -54,7 +54,7 @@ docker compose ps
 # Instalar dependencias
 docker compose run --rm composer install
 
-# Anadir libreria
+# Añadir librería
 docker compose run --rm composer require monolog/monolog
 
 # Entrar al contenedor app
@@ -64,7 +64,7 @@ docker compose exec app bash
 docker compose down
 ```
 
-## Troubleshooting rapido
+## Troubleshooting rápido
 
 - Si no abre `localhost:8080`, revisa `docker compose ps`.
 - Si cambias `Dockerfile`, reconstruye con `--build`.
@@ -72,4 +72,5 @@ docker compose down
 
 ## Siguiente paso
 
-Cuando esta guia te resulte comoda, continua con [Fase 2](../../fase-2/README.md).
+Cuando esta guía te resulte cómoda, continúa con [Proyecto con persistencia en MySQL](../../proyecto-con-persistencia-en-mysql/README.md).
+
