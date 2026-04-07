@@ -1,67 +1,56 @@
-﻿# Introduccion a Docker para IMAW (v2)
+﻿# Introduccion a Docker para IMAW
 
-**Autores: Ernesto eta Urtzi**
+[![Docker Desktop](https://img.shields.io/badge/Docker%20Desktop-Windows-2496ED?logo=docker&logoColor=white)](https://www.docker.com/products/docker-desktop/)
+[![Compose](https://img.shields.io/badge/Compose-Workflow-1D63ED)](https://docs.docker.com/compose/)
 
-> [!IMPORTANT]
-> Objetivo de esta guia: que en la primera sesion puedas arrancar el proyecto, entender que estas ejecutando y no depender de "me funciona en mi PC".
+Guia base para entender Docker en el proyecto y arrancar el entorno sin bloqueos.
 
-## 0. Preparacion en Windows
+Nivel: `1/2` (de menos a mas). Despues continua con la guia de PHP.
 
-1. Instala Docker Desktop: https://www.docker.com/products/docker-desktop/
-2. Reinicia el equipo si el instalador lo pide.
+## Indice
+
+- [Preparacion en Windows](#preparacion-en-windows)
+- [Mapa mental rapido](#mapa-mental-rapido)
+- [Dockerfile vs docker-composeyml](#dockerfile-vs-docker-composeyml)
+- [Comandos base](#comandos-base)
+- [Errores tipicos](#errores-tipicos)
+
+## Preparacion en Windows
+
+1. Instala [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+2. Reinicia si el instalador lo pide.
 3. Abre Docker Desktop y confirma estado `Running`.
-4. Activa WSL2 en `Settings > General > Use the WSL 2 based engine`.
+4. Activa `Use the WSL 2 based engine` en `Settings > General`.
 
-Comprobacion en PowerShell:
+Comprobacion:
 
 ```bash
 docker --version
 docker compose version
 ```
 
-## 1. Mapa mental rapido
+## Mapa mental rapido
 
 | Concepto | Traduccion sencilla |
 |---|---|
-| Imagen | La "plantilla" preparada (ejemplo: `php:8.2-apache`). |
-| Contenedor | Una imagen en ejecucion. |
-| Volumen | Disco persistente para datos. |
-| Red Docker | Permite que los contenedores hablen entre si por nombre (`db`, `app`, etc.). |
+| Imagen | Plantilla base (ejemplo `php:8.2-apache`). |
+| Contenedor | Instancia en ejecucion de una imagen. |
+| Volumen | Datos persistentes fuera del contenedor. |
+| Red Docker | Comunicacion entre servicios por nombre (`app`, `db`). |
 
-## 1.1 Antecedentes: que es Docker y para que sirve en web
+## Dockerfile vs docker-compose.yml
 
-Docker es una plataforma de contenedores. Un contenedor empaqueta aplicacion + dependencias para ejecutarla igual en cualquier entorno.
+| Archivo | Para que sirve |
+|---|---|
+| `Dockerfile` | Define como construir una imagen. |
+| `docker-compose.yml` | Define que servicios levantar y como se conectan. |
 
-En implantacion de aplicaciones web se usa para:
+Regla rapida:
 
-- Estandarizar el runtime (misma version de PHP, Apache, MySQL, etc.).
-- Automatizar arranque de servicios con `docker compose`.
-- Reducir errores por diferencias entre equipos.
-- Acercar el entorno de clase al entorno real de produccion.
+- Cambias runtime o paquetes: `Dockerfile`.
+- Cambias puertos, variables o servicios: `docker-compose.yml`.
 
-Lo que mola:
-
-- Onboarding rapido de nuevos compañeros.
-- Cambios de equipo sin rehacer instalaciones.
-- Flujo repetible para desarrollo, pruebas y despliegue.
-
-## 2. Por que lo usamos
-
-- Mismo entorno para todo el grupo.
-- Menos tiempo perdido en instalaciones locales.
-- Configuracion versionada en el repositorio.
-- Flujo mas parecido al trabajo real en equipo.
-
-## 3. Flujo de trabajo del dia a dia
-
-```mermaid
-flowchart LR
-A[Levantar entorno] --> B[Programar en src]
-B --> C[Probar en navegador]
-C --> D[Parar o seguir]
-```
-
-Comandos base:
+## Comandos base
 
 ```bash
 docker compose up -d --build
@@ -69,91 +58,12 @@ docker compose ps
 docker compose down
 ```
 
-## 4. Dockerfile vs docker-compose.yml
+## Errores tipicos
 
-| Archivo | Responde a | Ejemplo en este proyecto |
-|---|---|---|
-| `Dockerfile` | Como construyo mi imagen | Instalar extensiones `pdo_mysql`, `mysqli`, `zip`, activar `rewrite`. |
-| `docker-compose.yml` | Que servicios levanto y como se conectan | Arrancar servicios, puertos, volumenes y dependencias. |
+- Puerto ocupado: cambia el puerto publicado o cierra el proceso que lo usa.
+- Docker no responde: espera a que Docker Desktop este en `Running`.
+- Cambiaste Dockerfile y no se aplica: ejecuta `docker compose up -d --build`.
 
-Regla practica:
+## Recurso recomendado
 
-- Cambias paquetes o base del runtime -> `Dockerfile`
-- Cambias puertos, variables o servicios -> `docker-compose.yml`
-
-## 4.1 Sintaxis minima de docker-compose.yml
-
-```yaml
-services:
-  app:
-    build:
-      context: .
-      dockerfile: docker/php/Dockerfile
-    ports:
-      - "8080:80"
-    volumes:
-      - ./src:/var/www/html
-
-  composer:
-    image: composer:2
-    working_dir: /app
-    volumes:
-      - ./:/app
-    profiles:
-      - tools
-```
-
-Lectura rapida:
-
-- `services`: conjunto de contenedores del proyecto.
-- `app`, `composer`: nombre logico de cada servicio.
-- `build`: construye imagen propia con nuestro Dockerfile.
-- `image`: usa imagen oficial publicada.
-- `ports`: mapeo `HOST:CONTENEDOR`.
-- `volumes`: mapeo carpeta local a carpeta en contenedor.
-- `working_dir`: carpeta de trabajo por defecto.
-- `profiles`: servicios opcionales que se ejecutan bajo demanda.
-
-## 4.2 Por que anadimos Composer en Compose
-
-- Evita instalar Composer en cada equipo.
-- Garantiza misma version de Composer para todo el grupo.
-- Facilita comandos como `install`, `require` y `update` dentro de Docker.
-- Reduce diferencias entre ordenadores.
-
-Uso tipico:
-
-```bash
-docker compose run --rm composer install
-```
-
-## 5. Checklist de arranque (primera sesion)
-
-- [ ] Docker Desktop en `Running`.
-- [ ] `docker compose version` funciona.
-- [ ] El proyecto arranca con `docker compose up -d --build`.
-- [ ] `http://localhost:8080` carga.
-
-## 6. Errores tipicos y solucion rapida
-
-> [!WARNING]
-> Error: puerto en uso (`8080` o `3306`).
-> Solucion: cerrar el servicio que lo usa o cambiar el puerto en `docker-compose.yml`.
-
-> [!WARNING]
-> Error: Docker no responde.
-> Solucion: abrir Docker Desktop y esperar estado `Running`.
-
-> [!WARNING]
-> Error tras cambiar `Dockerfile` y no se aplica.
-> Solucion: reconstruir con `docker compose up -d --build`.
-
-> [!TIP]
-> Dentro de Docker, la base de datos se llama `db` (no `localhost`) para la app PHP.
-
-## 7. Mini reto de 10 minutos
-
-1. Levanta el entorno.
-2. Edita `src/index.php` y anade un texto nuevo.
-3. Recarga el navegador y verifica el cambio.
-4. Para el entorno con `docker compose down`.
+Siguiente nivel: [Guia Docker para PHP](./GUIA_DOCKER_PHP.md).

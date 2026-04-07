@@ -1,57 +1,46 @@
-# Fase 2 - PHP + MySQL (PDO)
+﻿# Fase 2 · PHP + MySQL (PDO)
 
-**Autores: Ernesto eta Urtzi**
+[![Docker](https://img.shields.io/badge/Docker-Multi%20Container-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.x-4479A1?logo=mysql&logoColor=white)](https://dev.mysql.com/doc/)
+[![PDO](https://img.shields.io/badge/PHP-PDO-777BB4?logo=php&logoColor=white)](https://www.php.net/manual/es/book.pdo.php)
 
-Objetivo: conectar PHP con MySQL usando PDO.
+Objetivo: conectar la app PHP con MySQL usando PDO en un entorno Docker.
 
-## Antecedentes rapidos de Docker
+## Indice
 
-Docker encapsula cada servicio en contenedores para que la app funcione igual en cualquier equipo.
+- [Inicio rapido](#inicio-rapido)
+- [Accesos](#accesos)
+- [Credenciales de base de datos](#credenciales-de-base-de-datos)
+- [Guia educativa](#guia-educativa)
+- [Parar servicios](#parar-servicios)
 
-En implantacion web esto permite:
-
-- Separar servicios (`app`, `db`, `phpmyadmin`) de forma ordenada.
-- Reproducir el entorno sin pasos manuales complejos.
-- Compartir configuracion estable mediante `docker-compose.yml`.
-
-Lo que mola en Fase 2:
-
-- Simulas una arquitectura real web + base de datos.
-- Puedes levantar y parar todo el stack en segundos.
-- Practicas un flujo parecido al de proyectos profesionales.
-
-## 1. Entrar en carpeta
+## Inicio rapido
 
 ```bash
-cd mi-proyecto-php\fase-2
-```
-
-## 2. Arrancar
-
-```bash
+cd fase-2
 docker compose up -d --build
 docker compose ps
 ```
 
-## 3. Probar
+## Accesos
 
-- App: http://localhost:8082
-- phpMyAdmin: http://localhost:8083
+- App: [http://localhost:8082](http://localhost:8082)
+- phpMyAdmin: [http://localhost:8083](http://localhost:8083)
 
-## 4. Datos de BD
+## Credenciales de base de datos
 
 - Host (desde PHP): `db`
 - Puerto interno: `3306`
-- BD: `imaw`
+- Base de datos: `imaw`
 - Usuario: `imaw`
 - Password: `imaw`
 - Root: `root` / `root`
 
-## 5. Guia educativa de cambios
+## Guia educativa
 
-- [Guia educativa Fase 2 (Docker + MySQL + PDO)](docs/GUIA_FASE_2_DOCKER_PDO.md)
+- [Guia Fase 2 (Docker + MySQL + PDO)](./docs/GUIA_FASE_2_DOCKER_PDO.md)
 
-## 6. Parar
+## Parar servicios
 
 ```bash
 docker compose down

@@ -1,61 +1,49 @@
-# Instalación de Visual Studio Code y extensiones (v2)
+﻿# Instalacion de Visual Studio Code y extensiones
 
-**Autores: Ernesto eta Urtzi**
+[![VS Code](https://img.shields.io/badge/VS%20Code-Setup-007ACC?logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
+[![Docker Extension](https://img.shields.io/badge/Extension-Docker-2496ED?logo=docker&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 
-> [!IMPORTANT]
-> Primero Docker Desktop, después VS Code. Si Docker no está bien instalado, el resto no compensa.
+Guia rapida para dejar el editor listo para trabajar en este proyecto.
 
-## 0. Previo obligatorio: Docker Desktop (Windows)
+## Indice
 
-1. Descargar: https://www.docker.com/products/docker-desktop/
-2. Instalar con opciones por defecto.
-3. Abrir Docker Desktop y confirmar estado `Running`.
-4. Activar `Use the WSL 2 based engine` en `Settings > General`.
+- [Previo obligatorio](#previo-obligatorio)
+- [Instalar VS Code](#instalar-vs-code)
+- [Extensiones clave](#extensiones-clave)
+- [Ajustes recomendados](#ajustes-recomendados)
+- [Checklist](#checklist)
 
-Comprobación en PowerShell:
+## Previo obligatorio
+
+1. Instala [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+2. Confirma estado `Running`.
+3. Activa WSL2 en Docker Desktop.
+
+Verifica:
 
 ```bash
 docker --version
 docker compose version
 ```
 
-## 1. Instalar VS Code
+## Instalar VS Code
 
-1. Web oficial: https://code.visualstudio.com/
-2. Descargar versión Windows.
-3. Instalar con opciones por defecto.
+1. Descarga: [code.visualstudio.com](https://code.visualstudio.com/).
+2. Instala version de Windows.
+3. Abre carpeta raiz `mi-proyecto-php`.
 
-## 2. Abrir el proyecto correcto
+## Extensiones clave
 
-1. `Archivo > Abrir carpeta...`
-2. Seleccionar `mi-proyecto-php`.
-3. Verificar que ves `docker-compose.yml`, `src/` y `docs/`.
-
-## 3. Extensiones imprescindibles
-
-| Extensión | Id | Para qué ayuda |
+| Extension | ID | Link |
 |---|---|---|
-| Dev Containers | `ms-vscode-remote.remote-containers` | Abrir y trabajar dentro del contenedor con entorno homogéneo para todo el grupo. |
-| PHP Intelephense | `bmewburn.vscode-intelephense-client` | Autocompletado, análisis y navegación PHP. |
-| Docker | `ms-azuretools.vscode-docker` | Gestión visual de contenedores y Compose. |
+| Containers (imprescindible) | `ms-azuretools.vscode-containers` | [Abrir](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-containers) |
+| Docker | `ms-azuretools.vscode-docker` | [Abrir](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) |
+| PHP Intelephense | `bmewburn.vscode-intelephense-client` | [Abrir](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client) |
+| Dev Containers | `ms-vscode-remote.remote-containers` | [Abrir](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) |
 
-## 4. Extensiones recomendadas
+## Ajustes recomendados
 
-| Extensión | Id | Para qué ayuda |
-|---|---|---|
-| PHP Debug | `xdebug.php-debug` | Depuración con Xdebug (cuando se active en v2). |
-| DotENV | `mikestead.dotenv` | Mejor edición de archivos `.env`. |
-| EditorConfig | `EditorConfig.EditorConfig` | Estilo consistente entre equipos. |
-
-Opcionales:
-
-- GitLens (`eamodio.gitlens`) para contexto de commits.
-- Error Lens (`usernamehw.errorlens`) para ver errores en línea.
-- Spanish Language Pack (`MS-CEINTL.vscode-language-pack-es`) para interfaz en castellano.
-
-## 5. Ajustes de VS Code sugeridos
-
-Crea o actualiza `.vscode/settings.json`:
+`.vscode/settings.json`:
 
 ```json
 {
@@ -65,32 +53,10 @@ Crea o actualiza `.vscode/settings.json`:
 }
 ```
 
-## 6. Terminal integrada: comandos que sí usarás
+## Checklist
 
-```bash
-docker compose up -d --build
-docker compose ps
-docker compose exec app bash
-docker compose down
-```
-
-## 7. Checklist de verificación
-
-- [ ] Dev Containers instalada.
-- [ ] Intelephense activa en un `.php`.
-- [ ] Docker Desktop en `Running`.
-- [ ] Entorno levantado con `docker compose up -d --build`.
-- [ ] Navegador abre `http://localhost:8080`.
-
-## 8. Problemas típicos
-
-> [!WARNING]
-> VS Code no detecta bien el proyecto.
-> Reabrir la carpeta raíz correcta (`mi-proyecto-php`).
-
-> [!WARNING]
-> Error al ejecutar `docker compose`.
-> Comprobar Docker Desktop `Running` y abrir una terminal nueva.
-
-> [!TIP]
-> Si la máquina va justa de recursos, cerrar apps pesadas antes de levantar contenedores.
+- [ ] Docker Desktop funcionando.
+- [ ] VS Code abierto en la raiz del proyecto.
+- [ ] Extensiones instaladas.
+- [ ] `docker compose up -d --build` ejecuta sin errores.
+- [ ] [http://localhost:8080](http://localhost:8080) responde.

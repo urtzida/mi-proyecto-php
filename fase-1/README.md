@@ -1,50 +1,49 @@
-# Fase 1 - PHP sin base de datos
+﻿# Fase 1 · PHP sin base de datos
 
-**Autores: Ernesto eta Urtzi**
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+[![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php&logoColor=white)](https://www.php.net/manual/es/)
+[![Nivel](https://img.shields.io/badge/Nivel-Inicial-success)](../README.md)
 
-Objetivo: levantar un hola mundo en PHP con Docker.
+Objetivo: levantar una aplicacion PHP basica en Docker (sin base de datos).
 
-## Antecedentes rapidos de Docker
+## Indice
 
-Docker permite ejecutar aplicaciones dentro de contenedores, que son entornos aislados y reproducibles.
+- [Inicio rapido](#inicio-rapido)
+- [Que vas a practicar](#que-vas-a-practicar)
+- [Comandos utiles](#comandos-utiles)
+- [Siguiente paso](#siguiente-paso)
 
-Para desarrollo e implantacion web aporta:
-
-- Mismo entorno para todo el grupo.
-- Menos problemas de instalaciones locales.
-- Configuracion versionada en el repo.
-- Transicion mas limpia de desarrollo a servidor.
-
-Lo que mola en esta fase:
-
-- Levantas PHP con un comando.
-- Puedes editar codigo y ver cambios al instante.
-- No dependes de tener todo instalado en local.
-
-## 1. Obtener proyecto
+## Inicio rapido
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
-cd mi-proyecto-php\fase-1
-```
-
-## 2. Arrancar
-
-```bash
+cd fase-1
 docker compose up -d --build
 docker compose ps
 ```
 
-## 3. Probar
+Abrir: [http://localhost:8080](http://localhost:8080)
 
-Abrir: http://localhost:8080
+## Que vas a practicar
 
-## 4. Editar hola mundo
+- Arranque de un entorno PHP con Docker Compose.
+- Edicion de codigo con recarga en navegador.
+- Flujo basico de levantar, probar y parar contenedores.
 
-Edita `src/index.php`, guarda y recarga navegador.
+Edita `src/index.php`, guarda y recarga para ver cambios.
 
-## 5. Parar
+## Comandos utiles
 
 ```bash
+# Ver estado
+docker compose ps
+
+# Ver logs
+docker compose logs -f
+
+# Parar entorno
 docker compose down
 ```
+
+## Siguiente paso
+
+Cuando domines esta fase, continua en [Fase 2](../fase-2/README.md) para integrar MySQL + PDO.

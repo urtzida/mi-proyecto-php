@@ -1,36 +1,31 @@
-# Docker para desarrollo y pruebas en PHP (v2)
+﻿# Docker para desarrollo y pruebas en PHP
 
-**Autores: Ernesto eta Urtzi**
+[![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php&logoColor=white)](https://www.php.net/manual/es/)
+[![Docker Compose](https://img.shields.io/badge/Docker%20Compose-Ready-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
 
-> [!IMPORTANT]
-> Fase 1: en esta guia solo trabajamos PHP. La base de datos queda para Fase 2.
+Guia practica de Fase 1 para trabajar PHP dentro de Docker.
 
-## 0. Obtener el proyecto
+Nivel: `2/2` (de menos a mas), despues de la guia base.
 
-Tienes dos opciones:
+## Indice
 
-### Opcion A: clonar con Git (recomendada)
+- [Paso previo](#paso-previo)
+- [Requisitos](#requisitos)
+- [Servicios de la fase](#servicios-de-la-fase)
+- [Arranque](#arranque)
+- [Comandos de trabajo](#comandos-de-trabajo)
+- [Troubleshooting rapido](#troubleshooting-rapido)
 
-```bash
-git clone <URL_DEL_REPOSITORIO>
-cd mi-proyecto-php
-```
+## Paso previo
 
-### Opcion B: descargar ZIP
+Primero revisa [Guia Docker base](./GUIA_DOCKER_BASE.md).
 
-1. Descarga el repositorio como `.zip` desde la plataforma.
-2. Descomprime el contenido.
-3. Abre una terminal dentro de la carpeta `mi-proyecto-php`.
+## Requisitos
 
-> [!TIP]
-> Si vas a entregar practicas o hacer cambios frecuentes, usa `git clone`.
-
-## 1. Requisitos (Windows)
-
-- Windows 10/11 con virtualizacion activa.
-- Docker Desktop instalado y en `Running`.
-- WSL2 activado (`Settings > General > Use the WSL 2 based engine`).
-- Git (recomendado).
+- Windows 10/11.
+- Docker Desktop en `Running`.
+- WSL2 activado.
+- Git recomendado.
 
 Verificacion:
 
@@ -39,115 +34,42 @@ docker --version
 docker compose version
 ```
 
-## 2. Que servicios levanta este proyecto (Fase 1)
+## Servicios de la fase
 
-| Servicio | Funcion | URL / acceso |
+| Servicio | Funcion | Acceso |
 |---|---|---|
-| `app` | PHP 8.2 + Apache | http://localhost:8080 |
-| `composer` | Comandos Composer puntuales | `docker compose run --rm composer ...` |
+| `app` | PHP + Apache | [http://localhost:8080](http://localhost:8080) |
+| `composer` | Comandos puntuales de dependencias | `docker compose run --rm composer ...` |
 
-### Por que hemos anadido `composer` en `docker-compose.yml`
-
-- Evita instalar Composer en cada ordenador.
-- Todos usamos la misma version (`composer:2`) y el mismo comportamiento.
-- Permite ejecutar `composer install`, `require` o `update` dentro de Docker.
-- Reduce el clasico "en mi equipo funciona distinto".
-
-En esta fase, `composer` es un servicio de soporte, no un servicio web permanente. Por eso se ejecuta bajo demanda con `docker compose run --rm composer ...`.
-
-## 3. Arranque
+## Arranque
 
 ```bash
 docker compose up -d --build
 docker compose ps
 ```
 
-> [!TIP]
-> Si `ps` muestra `app` como `Up`, el entorno esta listo para programar.
-
-## 4. Dockerfile vs docker-compose.yml
-
-| Si quieres... | Toca... |
-|---|---|
-| Instalar extensiones PHP o paquetes del sistema | `docker/php/Dockerfile` |
-| Cambiar puertos, volumenes o servicios | `docker-compose.yml` |
-
-Ejemplo real de este repo:
-
-- `Dockerfile`: anade `pdo_mysql`, `mysqli`, `zip` y activa `rewrite`.
-- `docker-compose.yml`: levanta `app`, define puerto/volumen y ofrece un servicio `composer` para gestionar dependencias.
-
-### Sintaxis esencial de `docker-compose.yml` (explicada rapido)
-
-```yaml
-services:
-  app:
-    build:
-      context: .
-      dockerfile: docker/php/Dockerfile
-    ports:
-      - "8080:80"
-    volumes:
-      - ./src:/var/www/html
-
-  composer:
-    image: composer:2
-    working_dir: /app
-    volumes:
-      - ./:/app
-    profiles:
-      - tools
-```
-
-Que significa cada bloque:
-
-- `services`: lista de contenedores que Compose sabe crear.
-- `app` y `composer`: nombre logico de cada servicio (se usa en comandos como `docker compose exec app ...`).
-- `build`: en vez de bajar una imagen tal cual, construimos una imagen propia con nuestro `Dockerfile`.
-- `image`: usa una imagen ya publicada (en este caso, oficial de Composer).
-- `ports`: `HOST:CONTENEDOR` (ejemplo `8080:80`).
-- `volumes`: carpeta local montada dentro del contenedor.
-- `working_dir`: directorio por defecto al ejecutar comandos en ese servicio.
-- `profiles`: permite marcar servicios opcionales para no levantarlos siempre.
-
-## 5. Comandos de trabajo frecuentes
+## Comandos de trabajo
 
 ```bash
-# Dependencias PHP
+# Instalar dependencias
 docker compose run --rm composer install
 
-# Anadir una libreria nueva
+# Anadir libreria
 docker compose run --rm composer require monolog/monolog
 
-# Entrar al contenedor PHP
+# Entrar al contenedor app
 docker compose exec app bash
-
-# Ejecutar pruebas (si hay PHPUnit)
-docker compose exec app php vendor/bin/phpunit
 
 # Parar entorno
 docker compose down
 ```
 
-## 6. Rutina sugerida para cada practica
+## Troubleshooting rapido
 
-1. Levantar entorno con `up -d --build`.
-2. Programar en `src/`.
-3. Probar en `http://localhost:8080`.
-4. Ejecutar pruebas si existen.
+- Si no abre `localhost:8080`, revisa `docker compose ps`.
+- Si cambias `Dockerfile`, reconstruye con `--build`.
+- Si falla Composer, comprueba que existe `composer.json` en el proyecto.
 
-## 7. Control de incidencias rapido
+## Siguiente paso
 
-> [!WARNING]
-> Si no abre `localhost:8080`, revisa `docker compose ps` y conflictos de puertos.
-
-> [!TIP]
-> Tras cambios en `Dockerfile`, reconstruye con `docker compose up -d --build`.
-
-## 8. Objetivo de aprendizaje
-
-Al terminar esta fase, deberias poder:
-
-- arrancar el entorno PHP,
-- desarrollar y probar un "hola mundo",
-- y ejecutar comandos de trabajo desde Docker.
+Cuando esta guia te resulte comoda, continua con [Fase 2](../../fase-2/README.md).

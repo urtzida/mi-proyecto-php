@@ -1,4 +1,4 @@
-# IMAW · Docker por Fases para PHP
+ï»¿# IMAW ï¿½ Docker por Fases para PHP
 
 [![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php&logoColor=white)](https://www.php.net/docs.php)
@@ -42,7 +42,7 @@ Antes de levantar contenedores, sigue este orden:
 
 ## Inicio rapido
 
-### Fase 1 · PHP
+### Fase 1 ï¿½ PHP
 
 ```bash
 cd fase-1
@@ -51,7 +51,7 @@ docker compose up -d --build
 
 - Aplicacion: [http://localhost:8080](http://localhost:8080)
 
-### Fase 2 · PHP + MySQL
+### Fase 2 ï¿½ PHP + MySQL
 
 ```bash
 cd fase-2
@@ -84,9 +84,9 @@ docker compose up -d --build
   - [phpMyAdmin Docs](https://docs.phpmyadmin.net/)
 - Editor y extensiones:
   - [Visual Studio Code](https://code.visualstudio.com/)
+  - [Containers para VS Code (imprescindible)](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-containers)
   - [Docker Extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
   - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
-
 ## Comandos utiles
 
 ```bash
