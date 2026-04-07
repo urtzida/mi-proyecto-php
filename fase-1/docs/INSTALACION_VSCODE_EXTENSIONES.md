@@ -74,7 +74,7 @@ docker compose exec app bash
 docker compose down
 ```
 
-## 7. Checklist de verificación del alumno
+## 7. Checklist de verificación
 
 - [ ] Dev Containers instalada.
 - [ ] Intelephense activa en un `.php`.

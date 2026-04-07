@@ -75,7 +75,7 @@ db:
 ### 2. Nuevo servicio `phpmyadmin`
 
 - **Que hacemos**: añadimos una interfaz web de administracion.
-- **Por que**: el alumnado puede ver la BD sin usar consola SQL al principio.
+- **Por que**: puedes ver la BD sin usar consola SQL al principio.
 - **Para que**: comprobar visualmente que la tabla y los datos existen.
 
 ### 3. `depends_on` en `app`
@@ -94,7 +94,7 @@ db:
 
 - **Que hacemos**: montamos `docker/mysql/init.sql` en `docker-entrypoint-initdb.d`.
 - **Por que**: crear tabla y dato inicial automaticamente.
-- **Para que**: el alumnado ve resultados desde el primer arranque.
+- **Para que**: ves resultados desde el primer arranque.
 
 ### 6. Servicio `composer` en Compose
 
@@ -138,7 +138,7 @@ Archivo: `src/index.php`
 
 **Resultado esperado**:
 
-- el alumno ve diferencia entre app sin datos y app conectada a una BD real.
+- ves diferencia entre app sin datos y app conectada a una BD real.
 
 ## Flujo recomendado
 

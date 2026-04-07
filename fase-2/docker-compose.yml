@@ -1,19 +1,20 @@
-# docker-compose.yml
-# Autores: Ernesto eta Urtzi
+# Archivo: docker-compose.yml
+# Objetivo: levantar el entorno completo de desarrollo de la fase 2.
+# Contexto: define servicios de app PHP/Apache, MySQL, phpMyAdmin y Composer.
 services:
   app: # Servicio web principal (PHP + Apache)
     build:
-      context: . # Contexto de build: carpeta fase-2
-      dockerfile: docker/php/Dockerfile # Imagen personalizada de PHP con extensiones PDO/MySQL
-    container_name: imaw_fase2_app # Nombre fijo del contenedor de aplicacion
+      context: . # Bloque build: carpeta enviada al motor de Docker
+      dockerfile: docker/php/Dockerfile # Bloque build: Dockerfile personalizado de PHP
+    container_name: imaw_fase2_app # Identificador fijo del contenedor app
     ports:
-      - "8082:80" # Puerto local 8082 -> puerto 80 de Apache en contenedor
+      - "8082:80" # Mapeo de puertos: host 8082 -> contenedor 80
     volumes:
-      - ./src:/var/www/html # Monta el codigo local para desarrollo en caliente
+      - ./src:/var/www/html # Montaje de codigo para desarrollo en caliente
     depends_on:
-      - db # Arranca la app despues del servicio de base de datos
+      - db # Dependencia de arranque: la app espera al servicio db
 
-  db: # Servicio de base de datos MySQL
+  db: # Servicio de base de datos
     image: mysql:8.4 # Imagen oficial de MySQL 8.4
     container_name: imaw_fase2_mysql
     restart: unless-stopped # Reinicio automatico salvo parada manual
@@ -23,10 +24,10 @@ services:
       MYSQL_USER: imaw # Usuario de aplicacion
       MYSQL_PASSWORD: imaw # Clave del usuario de aplicacion
     ports:
-      - "3307:3306" # Puerto local 3307 -> puerto 3306 de MySQL
+      - "3307:3306" # Mapeo de puertos: host 3307 -> contenedor 3306
     volumes:
-      - db_data:/var/lib/mysql # Persistencia de datos de MySQL
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro # Script SQL inicial al crear la BD
+      - db_data:/var/lib/mysql # Volumen persistente para datos MySQL
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro # Script de inicializacion SQL (solo lectura)
 
   phpmyadmin: # Interfaz web para administrar MySQL
     image: phpmyadmin:latest
@@ -45,9 +46,9 @@ services:
     container_name: imaw_fase2_composer
     working_dir: /app # Directorio de trabajo dentro del contenedor
     volumes:
-      - ./:/app # Monta todo el proyecto para composer.json y vendor
+      - ./:/app # Montaje del proyecto completo para composer.json y vendor
     profiles:
       - tools # Se usa bajo demanda (docker compose run --rm composer ...)
 
 volumes:
-  db_data: # Volumen nombrado para conservar datos de MySQL
+  db_data: # Volumen nombrado para persistencia de datos de MySQL

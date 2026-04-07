@@ -146,7 +146,7 @@ docker compose down
 
 ## 8. Objetivo de aprendizaje
 
-Al terminar esta fase, el alumno deberia poder:
+Al terminar esta fase, deberias poder:
 
 - arrancar el entorno PHP,
 - desarrollar y probar un "hola mundo",

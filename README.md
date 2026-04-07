@@ -1,68 +1,116 @@
-# IMAW - Docker por fases
+# IMAW · Docker por Fases para PHP
 
-**Autores: Ernesto eta Urtzi**
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php&logoColor=white)](https://www.php.net/docs.php)
+[![MySQL](https://img.shields.io/badge/MySQL-8.x-4479A1?logo=mysql&logoColor=white)](https://dev.mysql.com/doc/)
+[![Status](https://img.shields.io/badge/Curso-Activo-success)](#inicio-rapido)
 
-Este repo esta dividido en 2 partes independientes para el alumnado:
+Proyecto docente organizado en dos fases progresivas para aprender despliegue con Docker en aplicaciones PHP.
 
-- `fase-1`: PHP solo (hola mundo), sin base de datos.
-- `fase-2`: PHP + MySQL con PDO.
+## Indice
 
-## Ruta recomendada (antes de levantar contenedores)
+- [Autores](#autores)
+- [Vista general](#vista-general)
+- [Ruta recomendada](#ruta-recomendada)
+- [Inicio rapido](#inicio-rapido)
+- [Documentacion del proyecto](#documentacion-del-proyecto)
+- [Recursos recomendados](#recursos-recomendados)
+- [Comandos utiles](#comandos-utiles)
+- [Que carpeta usar](#que-carpeta-usar)
+- [Parar servicios](#parar-servicios)
 
-1. Lee e instala siguiendo las guias de `fase-1/docs/`:
-   - `GUIA_DOCKER_BASE.md`
-   - `INSTALACION_VSCODE_EXTENSIONES.md`
-   - `GUIA_DOCKER_PHP.md`
-2. Cuando tengas Docker listo y VS Code preparado, arranca la fase que toque.
+## Autores
 
-## Antecedentes: que es Docker y para que sirve
+**Ernesto eta Urtzi**
 
-Docker es una tecnologia de contenedores: empaqueta una aplicacion con todo lo necesario para ejecutarse (runtime, librerias y configuracion) de forma portable.
+## Vista general
 
-Para implantacion de aplicaciones web sirve para:
+Este repositorio separa el aprendizaje en dos bloques independientes:
 
-- Ejecutar la app igual en todos los equipos (aula, casa y servidor).
-- Reducir errores de entorno ("en mi PC funciona").
-- Definir infraestructura como codigo (`Dockerfile` y `docker-compose.yml`).
-- Montar servicios reales de backend (web, base de datos, herramientas) en minutos.
+| Fase | Objetivo | Stack |
+|---|---|---|
+| `fase-1` | Primer despliegue de una app PHP | PHP (sin base de datos) |
+| `fase-2` | Integrar persistencia en entorno Docker | PHP + MySQL (PDO) |
 
-Lo que mola en practicas de web:
+## Ruta recomendada
 
-- Arranque rapido de entornos con un solo comando.
-- Flujo de equipo mas ordenado y repetible.
-- Paso a produccion mas natural porque el entorno se parece al real.
+Antes de levantar contenedores, sigue este orden:
 
-## Que carpeta usar
+1. Revisa la documentacion de `fase-1/docs/`.
+2. Verifica que Docker y VS Code esten listos.
+3. Arranca la fase correspondiente segun tu nivel.
 
-- Empieza por `fase-1` si es la primera vez con Docker.
-- Pasa a `fase-2` cuando toque integracion con base de datos.
+## Inicio rapido
 
-## Arranque (despues de seguir las guias)
-
-### Fase 1
+### Fase 1 · PHP
 
 ```bash
 cd fase-1
 docker compose up -d --build
 ```
 
-App: http://localhost:8080
+- Aplicacion: [http://localhost:8080](http://localhost:8080)
 
-### Fase 2
+### Fase 2 · PHP + MySQL
 
 ```bash
 cd fase-2
 docker compose up -d --build
 ```
 
-App: http://localhost:8082
-phpMyAdmin: http://localhost:8083
+- Aplicacion: [http://localhost:8082](http://localhost:8082)
+- phpMyAdmin: [http://localhost:8083](http://localhost:8083)
 
-## Notas
+## Documentacion del proyecto
 
-- Cada fase tiene su propio `docker-compose.yml`.
-- Cada fase incluye su documentacion en `docs/`.
-- Puedes parar cada fase desde su carpeta:
+- Fase 1:
+  - [Guia Docker Base](./fase-1/docs/GUIA_DOCKER_BASE.md)
+  - [Instalacion VS Code y extensiones](./fase-1/docs/INSTALACION_VSCODE_EXTENSIONES.md)
+  - [Guia Docker para PHP](./fase-1/docs/GUIA_DOCKER_PHP.md)
+- Fase 2:
+  - [Documentacion de fase 2](./fase-2/docs/)
+
+## Recursos recomendados
+
+- Docker:
+  - [Docker Docs](https://docs.docker.com/)
+  - [Docker Compose Overview](https://docs.docker.com/compose/)
+  - [Docker Hub PHP](https://hub.docker.com/_/php)
+  - [Docker Hub MySQL](https://hub.docker.com/_/mysql)
+- PHP y base de datos:
+  - [Manual oficial de PHP](https://www.php.net/manual/es/)
+  - [PHP PDO](https://www.php.net/manual/es/book.pdo.php)
+  - [MySQL Documentation](https://dev.mysql.com/doc/)
+  - [phpMyAdmin Docs](https://docs.phpmyadmin.net/)
+- Editor y extensiones:
+  - [Visual Studio Code](https://code.visualstudio.com/)
+  - [Docker Extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+  - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
+
+## Comandos utiles
+
+```bash
+# Ver contenedores de la fase actual
+docker compose ps
+
+# Ver logs en tiempo real
+docker compose logs -f
+
+# Entrar al contenedor PHP
+docker compose exec php bash
+
+# Reconstruir imagenes
+docker compose build --no-cache
+```
+
+## Que carpeta usar
+
+- Empieza por `fase-1` si es tu primer contacto con Docker.
+- Continua con `fase-2` para trabajar integracion con base de datos.
+
+## Parar servicios
+
+Desde la carpeta de cada fase:
 
 ```bash
 docker compose down
