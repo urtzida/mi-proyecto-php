@@ -1,0 +1,21 @@
+# docker-compose.yml
+# Autores: Ernesto eta Urtzi
+services:
+  app: # Servicio principal de la aplicacion PHP
+    build:
+      context: . # Carpeta raiz enviada al build de Docker
+      dockerfile: docker/php/Dockerfile # Archivo que define la imagen personalizada de PHP
+    container_name: imaw_php_app # Nombre fijo del contenedor para localizarlo rapido
+    ports:
+      - "8080:80" # Puerto local 8080 -> puerto 80 de Apache dentro del contenedor
+    volumes:
+      - ./src:/var/www/html # Sincroniza el codigo local con Apache (desarrollo en caliente)
+
+  composer: # Herramienta puntual para ejecutar Composer sin instalarlo en Windows
+    image: composer:2
+    container_name: imaw_composer
+    working_dir: /app # Carpeta de trabajo dentro del contenedor
+    volumes:
+      - ./:/app # Monta todo el proyecto para que composer vea composer.json
+    profiles:
+      - tools # Solo se ejecuta al invocarlo (run) o activando perfil tools
