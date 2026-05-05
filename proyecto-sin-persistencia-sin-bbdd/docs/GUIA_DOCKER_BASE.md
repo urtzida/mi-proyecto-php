@@ -83,6 +83,18 @@ Si ambos comandos responden con versión, Docker CLI y Compose están disponible
 | Volumen | Datos persistentes fuera del contenedor. |
 | Red Docker | Comunicación entre servicios por nombre (`app`, `db`). |
 
+### Diagrama conceptual rápido
+
+```mermaid
+flowchart LR
+    A[Dockerfile] --> B[Imagen]
+    B --> C[Contenedor]
+    D[docker-compose.yml] --> C
+    C --> E[Puertos]
+    C --> F[Volúmenes]
+    C --> G[Red Docker]
+```
+
 ## Dockerfile vs docker-compose.yml
 
 | Archivo | Para qué sirve |
@@ -96,6 +108,17 @@ Regla rápida:
 - Cambias puertos, variables o servicios: `docker-compose.yml`.
 
 Esta separación te ayuda a decidir rápido si necesitas reconstruir imagen o solo reiniciar servicios.
+
+### Cuándo tocar cada archivo
+
+```mermaid
+flowchart TD
+    Q{¿Qué quieres cambiar?}
+    Q -->|Paquetes / runtime / extensiones| DF[Editar Dockerfile]
+    Q -->|Puertos / variables / servicios| DC[Editar docker-compose.yml]
+    DF --> R[Reconstruir con --build]
+    DC --> U[Levantar de nuevo servicios]
+```
 
 ## Comandos base
 

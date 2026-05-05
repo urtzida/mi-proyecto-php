@@ -31,6 +31,17 @@ Pasar de una app PHP aislada a una app con base de datos real usando PDO.
 
 ## Cambios en docker-compose.yml
 
+### Diagrama de arquitectura (con persistencia)
+
+```mermaid
+flowchart LR
+    U[Usuario] -->|http://localhost:8082| APP[app: PHP + Apache]
+    APP -->|PDO| DB[(MySQL db)]
+    A[phpMyAdmin] -->|http://localhost:8083| DB
+    C[composer] -. dependencias .-> APP
+    V[(Volumen db_data)] --- DB
+```
+
 ### Servicio `db`
 
 - Aporta MySQL para persistencia.
@@ -65,6 +76,21 @@ docker compose run --rm composer require vendor/paquete
 
 - Dockerfile mantiene extensiones para BD (`pdo`, `pdo_mysql`, `mysqli`).
 - `src/index.php` crea conexión PDO al host `db` y ejecuta una consulta.
+
+### Secuencia de conexión PDO
+
+```mermaid
+sequenceDiagram
+    participant Navegador
+    participant App as app (PHP)
+    participant DB as db (MySQL)
+    Navegador->>App: GET /
+    App->>DB: Conectar con PDO
+    DB-->>App: Conexión OK
+    App->>DB: SELECT ...
+    DB-->>App: Resultados
+    App-->>Navegador: HTML con datos
+```
 
 ### Por qué no se recomienda generar `settings.json` desde PHP en este proyecto
 
@@ -112,4 +138,3 @@ Este proyecto introduce una arquitectura web real (app + BD + admin) como base p
 | **R** | Read (leer) | `SELECT` |
 | **U** | Update (actualizar) | `UPDATE` |
 | **D** | Delete (eliminar) | `DELETE` |
-

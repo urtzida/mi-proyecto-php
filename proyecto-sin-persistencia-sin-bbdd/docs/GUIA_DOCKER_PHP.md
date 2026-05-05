@@ -41,11 +41,32 @@ docker compose version
 | `app` | PHP + Apache | [http://localhost:8080](http://localhost:8080) |
 | `composer` | Comandos puntuales de dependencias | `docker compose run --rm composer ...` |
 
+### Diagrama de servicios (sin BBDD)
+
+```mermaid
+flowchart LR
+    U[Usuario navegador] -->|http://localhost:8080| A[app: PHP + Apache]
+    C[composer] -. comando puntual .-> A
+```
+
 ## Arranque
 
 ```bash
 docker compose up -d --build
 docker compose ps
+```
+
+### Flujo de trabajo típico
+
+```mermaid
+flowchart TD
+    S[Editar código] --> U[docker compose up -d --build]
+    U --> P[docker compose ps]
+    P --> B[Abrir localhost:8080]
+    B --> L{¿Funciona?}
+    L -->|Sí| OK[Listo para seguir]
+    L -->|No| T[Revisar logs / puertos]
+    T --> U
 ```
 
 ## Comandos de trabajo
