@@ -1,5 +1,5 @@
-# Archivo: docker-compose.yml
-# Objetivo: levantar el entorno completo de desarrollo de la proyecto con persistencia en MySQL.
+﻿# Archivo: docker-compose.yml
+# Objetivo: levantar el entorno completo de desarrollo del proyecto con persistencia en MySQL.
 # Contexto: define servicios de app PHP/Apache, MySQL, phpMyAdmin y Composer.
 services:
   app: # Servicio web principal (PHP + Apache)
@@ -8,26 +8,26 @@ services:
       dockerfile: docker/php/Dockerfile # Bloque build: Dockerfile personalizado de PHP
     container_name: imaw_fase2_app # Identificador fijo del contenedor app
     ports:
-      - "8764:80" # Mapeo de puertos: host 8082 -> contenedor 80
+      - "8082:80" # Mapeo de puertos: host 8082 -> contenedor 80
     volumes:
-      - ./src:/var/www/html # Montaje de codigo para desarrollo en caliente
+      - ./src:/var/www/html # Montaje de código para desarrollo en caliente
     depends_on:
       - db # Dependencia de arranque: la app espera al servicio db
 
   db: # Servicio de base de datos
     image: mysql:8.4 # Imagen oficial de MySQL 8.4
     container_name: imaw_fase2_mysql
-    restart: unless-stopped # Reinicio automatico salvo parada manual
+    restart: unless-stopped # Reinicio automático salvo parada manual
     environment:
       MYSQL_ROOT_PASSWORD: root # Clave del usuario root (entorno docente)
       MYSQL_DATABASE: imaw # Base de datos inicial
-      MYSQL_USER: imaw # Usuario de aplicacion
-      MYSQL_PASSWORD: imaw # Clave del usuario de aplicacion
+      MYSQL_USER: imaw # Usuario de aplicación
+      MYSQL_PASSWORD: imaw # Clave del usuario de aplicación
     ports:
       - "3307:3306" # Mapeo de puertos: host 3307 -> contenedor 3306
     volumes:
       - db_data:/var/lib/mysql # Volumen persistente para datos MySQL
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro # Script de inicializacion SQL (solo lectura)
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro # Script de inicialización SQL (solo lectura)
 
   phpmyadmin: # Interfaz web para administrar MySQL
     image: phpmyadmin:latest
@@ -52,3 +52,4 @@ services:
 
 volumes:
   db_data: # Volumen nombrado para persistencia de datos de MySQL
+

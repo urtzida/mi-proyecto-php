@@ -38,13 +38,18 @@ El arranque puede tardar algo más que en Proyecto sin persistencia (sin BBDD) p
 - Base de datos: `imaw`
 - Usuario: `imaw`
 - Password: `imaw`
-- Root: `root` / `root`
+- Root: `root` / `root` (solo para acceder a phpMyAdmin como administrador)
 
-Importante: el host `db` solo funciona dentro de la red Docker. Desde tu PC, usarías `localhost` con el puerto publicado.
+Importante: el nombre de host `db` es el nombre del servicio MySQL dentro de la red interna de Docker. Solo es accesible desde otros contenedores del mismo `docker-compose.yml` (por eso se usa en `src/index.php`). Desde tu PC, ese nombre no existe; si quisieras conectarte con un cliente externo como DBeaver o TablePlus, usarías `localhost` y el puerto publicado en Compose:
+
+| Contexto | Host | Puerto |
+|----------|------|--------|
+| Desde PHP (dentro de Docker) | `db` | `3306` |
+| Desde tu PC (cliente externo) | `localhost` | `3307` |
 
 ## Guía educativa
 
-- [Guía Proyecto con persistencia en MySQL (Docker + MySQL + PDO)](./docs/GUIA_FASE_2_DOCKER_PDO.md)
+- [Guía Proyecto con persistencia en MySQL (Docker + MySQL + PDO)](./docs/GUIA_DOCKER_PHP_MYSQL_PDO.md)
 
 ## Parar servicios
 
@@ -52,4 +57,4 @@ Importante: el host `db` solo funciona dentro de la red Docker. Desde tu PC, usa
 docker compose down
 ```
 
-`down` no borra datos del volumen por defecto. Eso permite parar y seguir después sin perder tablas.
+`down` no borra datos del volumen por defecto. Eso permite parar y seguir después sin perder contenido de las tablas MySQL.

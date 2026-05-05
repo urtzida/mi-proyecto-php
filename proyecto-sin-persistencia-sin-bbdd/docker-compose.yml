@@ -1,16 +1,16 @@
-# Archivo: docker-compose.yml
-# Objetivo: levantar el entorno de desarrollo de la proyecto sin persistencia (sin BBDD).
-# Contexto: define servicios para aplicacion PHP/Apache y utilidad Composer.
+﻿# Archivo: docker-compose.yml
+# Objetivo: levantar el entorno de desarrollo del proyecto sin persistencia (sin BBDD).
+# Contexto: define servicios para aplicación PHP/Apache y utilidad Composer.
 services:
-  app: # Servicio principal de la aplicacion web
+  app: # Servicio principal de la aplicación web
     build:
       context: . # Bloque build: carpeta enviada al motor de Docker
       dockerfile: docker/php/Dockerfile # Bloque build: Dockerfile personalizado de PHP
     container_name: imaw_php_app # Identificador fijo del contenedor app
     ports:
-      - "8765:80" # Mapeo de puertos: host 8080 -> contenedor 80
+      - "8080:80" # Mapeo de puertos: host 8080 -> contenedor 80
     volumes:
-      - ./src:/var/www/html # Montaje de codigo para desarrollo en caliente
+      - ./src:/var/www/html # Montaje de código para desarrollo en caliente
 
   composer: # Servicio auxiliar para ejecutar Composer bajo demanda
     image: composer:2
@@ -20,3 +20,4 @@ services:
       - ./:/app # Montaje del proyecto completo para composer.json y vendor
     profiles:
       - tools # Perfil opcional: solo se inicia cuando se solicita
+

@@ -1,6 +1,6 @@
-# Archivo: docker/php/Dockerfile
-# Objetivo: construir la imagen de desarrollo PHP + Apache para la proyecto con persistencia en MySQL.
-# Contexto: incluye extensiones para conexion MySQL mediante mysqli y PDO.
+﻿# Archivo: docker/php/Dockerfile
+# Objetivo: construir la imagen de desarrollo PHP + Apache para el proyecto con persistencia en MySQL.
+# Contexto: incluye extensiones para conexión MySQL mediante mysqli y PDO.
 FROM php:8.2-apache
 
 # Paso 1: instalar utilidades del sistema y extensiones PHP requeridas.
@@ -12,3 +12,4 @@ RUN apt-get update \
 
 # Paso 2: definir el directorio de trabajo servido por Apache.
 WORKDIR /var/www/html
+

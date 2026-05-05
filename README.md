@@ -79,7 +79,7 @@ Si la web tarda en responder al principio, normalmente es porque MySQL aún est�
   - [Instalación de VS Code y extensiones](./proyecto-sin-persistencia-sin-bbdd/docs/INSTALACION_VSCODE_EXTENSIONES.md)
   - [Guía Docker para PHP](./proyecto-sin-persistencia-sin-bbdd/docs/GUIA_DOCKER_PHP.md)
 - Proyecto con persistencia en MySQL:
-  - [Guía Docker + MySQL + PDO](./proyecto-con-persistencia-en-mysql/docs/GUIA_FASE_2_DOCKER_PDO.md)
+  - [Guía Docker + MySQL + PDO](./proyecto-con-persistencia-en-mysql/docs/GUIA_DOCKER_PHP_MYSQL_PDO.md)
 
 ## Recursos recomendados
 

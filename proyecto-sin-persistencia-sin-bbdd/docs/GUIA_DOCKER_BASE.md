@@ -11,11 +11,50 @@ Nivel: `1/2` (de menos a más). Después continúa con la guía de PHP.
 
 ## Índice
 
+- [Antecedentes y contexto](#antecedentes-y-contexto)
 - [Preparación en Windows](#preparación-en-windows)
 - [Mapa mental rápido](#mapa-mental-rápido)
 - [Dockerfile vs docker-compose.yml](#dockerfile-vs-docker-composeyml)
 - [Comandos base](#comandos-base)
 - [Errores típicos](#errores-típicos)
+
+## Antecedentes y contexto
+
+Antes de Docker era muy común que un proyecto funcionara en el ordenador del desarrollador pero fallara en pruebas o producción por diferencias de sistema operativo, versiones de software o configuraciones. Con las máquinas virtuales (VM) se mejoró parte del problema, pero consumen más recursos porque cada VM incluye un sistema operativo completo.
+
+Docker popularizó el uso de **contenedores ligeros**: comparten el kernel del sistema operativo anfitrión, arrancan rápido y son más eficientes en CPU y memoria que una VM tradicional.
+
+Un **contenedor** es una unidad aislada y portable que incluye el código de la aplicación, sus dependencias, variables de entorno y el comando de arranque. La idea principal es: *"si funciona en el contenedor, funciona igual en cualquier servidor que ejecute Docker"*.
+
+Docker permite empaquetar la aplicación y su entorno (PHP, Apache y dependencias) para que funcione de forma consistente en cualquier equipo. En IMAW, esto evita el clásico "en mi máquina funciona" y simplifica el arranque del proyecto para todo el grupo.
+
+En lugar de instalar manualmente todo en Windows, usamos contenedores definidos en código (`Dockerfile` y `docker-compose.yml`). Así ganamos reproducibilidad, reducimos conflictos entre versiones y trabajamos con un flujo más cercano al entorno real de despliegue.
+
+### Ventajas principales
+
+- Portabilidad real entre equipos y entornos.
+- Menor fricción entre desarrollo y sistemas.
+- Entornos reproducibles y versionados.
+- Mejor aprovechamiento de recursos que las VMs tradicionales.
+- Onboarding rápido: nuevos miembros del equipo arrancan el proyecto en minutos.
+- Encaja bien con pipelines de integración y despliegue continuo (CI/CD).
+
+### Límites y consideraciones
+
+- Curva de aprendizaje inicial (redes, volúmenes, seguridad).
+- La gestión de datos persistentes requiere buena práctica con volúmenes.
+- En producción a gran escala se suele usar orquestación (Kubernetes, Docker Swarm, etc.).
+
+### Arquitectura típica de una app web con Docker
+
+| Contenedor | Función |
+|------------|---------|
+| Nginx / Apache | Servidor web o reverse proxy |
+| Aplicación (PHP, Node…) | Lógica de negocio |
+| Base de datos (MySQL…) | Persistencia |
+| Redis (opcional) | Caché / sesiones |
+
+Todo se coordina con Docker Compose y se puede reproducir en cualquier máquina con un solo comando.
 
 ## Preparación en Windows
 

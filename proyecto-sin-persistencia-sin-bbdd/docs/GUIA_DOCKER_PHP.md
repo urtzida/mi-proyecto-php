@@ -3,7 +3,7 @@
 [![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php&logoColor=white)](https://www.php.net/manual/es/)
 [![Docker Compose](https://img.shields.io/badge/Docker%20Compose-Ready-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
 
-Guía práctica de Proyecto sin persistencia (sin BBDD) para trabajar PHP dentro de Docker.
+Guía práctica del Proyecto sin persistencia (sin BBDD) para trabajar con PHP dentro de Docker.
 
 Nivel: `2/2` (de menos a más), después de la guía base.
 
@@ -72,5 +72,4 @@ docker compose down
 
 ## Siguiente paso
 
-Cuando esta guía te resulte cómoda, continúa con [Proyecto con persistencia en MySQL](../../proyecto-con-persistencia-en-mysql/README.md).
-
+Cuando tengas el entorno en marcha, continúa con [Instalación de extensiones de VS Code](./INSTALACION_VSCODE_EXTENSIONES.md).
