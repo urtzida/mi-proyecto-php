@@ -22,10 +22,6 @@ Si sigues ese orden, la mayoría de errores serán más fáciles de identificar.
 - [Qué carpeta usar](#qué-carpeta-usar)
 - [Parar servicios](#parar-servicios)
 
-## Autores
-
-**Ernesto eta Urtzi**
-
 ## Vista general
 
 Este repositorio separa el aprendizaje en dos bloques independientes:
@@ -41,9 +37,9 @@ Antes de levantar contenedores, sigue este orden:
 
 1. Revisa la documentación de `proyecto-sin-persistencia-sin-bbdd/docs/`.
 2. Verifica que Docker y VS Code estén listos.
-3. Arranca el proyecto correspondiente según tu nivel.
+3. Arranca el proyecto correspondiente según el nivel que indique la documentación.
 
-Nota: cada fase tiene su propio `docker-compose.yml`, por eso debes ejecutar comandos dentro de la carpeta del proyecto.
+Nota: cada fase tiene su propio `docker-compose.yml`, por eso debes ejecutar comandos de Docker compose dentro de la carpeta del proyecto.
 
 ## Inicio rápido
 
