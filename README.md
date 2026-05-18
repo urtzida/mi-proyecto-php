@@ -12,7 +12,6 @@ Si sigues ese orden, la mayoría de errores serán más fáciles de identificar.
 
 ## Índice
 
-- [Autores](#autores)
 - [Vista general](#vista-general)
 - [Ruta recomendada](#ruta-recomendada)
 - [Inicio rápido](#inicio-rápido)
